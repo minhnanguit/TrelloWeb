@@ -13,6 +13,7 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
 import Tooltip from '@mui/material/Tooltip'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import Profiles from './Menus/Profiles'
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
 
 // Dung file icon svg ngoai vao trong MUI
 import { ReactComponent as TrelloIcon } from '~/assets/trello.svg'
@@ -27,7 +28,7 @@ function AppBar() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: '8px',
+      paddingX: '8px',
       gap: 2,
       overflowX: 'auto'
     }}>
@@ -43,7 +44,7 @@ function AppBar() {
           <Recent />
           <Starred />
           <Templates />
-          <Button variant="outlined">Create</Button>
+          <Button variant="outlined" startIcon={<LibraryAddIcon />}>Create</Button>
         </Box>
       </Box>
 
