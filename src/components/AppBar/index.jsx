@@ -30,110 +30,120 @@ function AppBar() {
     <Box sx={{
       height: (theme) => theme.trello.appBarHeight,
       width: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
       paddingX: '8px',
       gap: 2,
-      overflowX: 'auto',
       backgroundColor: (theme) => (theme.palette.mode === 'dark' ? '#2c3e50' : '#1565c0')
     }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <AppsIcon sx={{ color: 'white' }} />
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-          <SvgIcon component={TrelloIcon} inheritViewBox fontSize='small' sx={{ color: 'white' }} />
-          <Typography variant='span' sx={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'white' }}>Trello</Typography>
+      <Box sx={{
+        bgColor: 'inherit',
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        overflowX: 'auto',
+        '&::-webkit-scrollbar-track': {
+          margin: '0 8px'
+        }
+      }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <AppsIcon sx={{ color: 'white' }} />
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <SvgIcon component={TrelloIcon} inheritViewBox fontSize='small' sx={{ color: 'white' }} />
+            <Typography variant='span' sx={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'white' }}>Trello</Typography>
+          </Box>
+
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
+            <Workspaces />
+            <Recent />
+            <Starred />
+            <Templates />
+            <Button
+              variant="outlined"
+              endIcon={<LibraryAddIcon />}
+              sx={{
+                color: 'white',
+                border: 'none',
+                '&:hover': {
+                  border: 'none'
+                }
+              }}
+            >
+              Create
+            </Button>
+          </Box>
         </Box>
 
-        <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
-          <Workspaces />
-          <Recent />
-          <Starred />
-          <Templates />
-          <Button
-            variant="outlined"
-            endIcon={<LibraryAddIcon />}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <TextField
+            id="outlined-search"
+            label="Search..."
+            type="text"
+            size='small'
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon
+                    sx={{ color: 'white' }}
+                  />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <CloseIcon
+                    sx={{
+                      color: searchValue ? 'white' : 'transparent',
+                      cursor: 'pointer'
+                    }}
+                    fontSize='small'
+                    onClick={() => setSearchValue('')}
+                  />
+                </InputAdornment>
+              )
+            }}
             sx={{
-              color: 'white',
-              border: 'none',
-              '&:hover': {
-                border: 'none'
+              minWidth: '120px',
+              maxWidth: '180px',
+              '& label': {
+                color: 'white'
+              },
+              '& label.Mui-focused': {
+                color: 'white'
+              },
+              '& input': {
+                color: 'white'
+              },
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: 'white'
+                },
+                '&:hover fieldset': {
+                  borderColor: 'white'
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'white'
+                }
               }
             }}
-          >
-            Create
-          </Button>
+          />
+
+          <ModeSelect />
+          <Tooltip title="Notifications">
+            <Badge color="warning" variant="dot" sx={{ cursor: 'pointer' }}>
+              <NotificationsNoneIcon sx={{ color: 'white' }} />
+            </Badge>
+          </Tooltip>
+          <Tooltip title="Help">
+            <HelpOutlineIcon sx={{ color: 'white' }} />
+          </Tooltip>
+          <Tooltip title="Profiles">
+            <Profiles />
+          </Tooltip>
         </Box>
       </Box>
-
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <TextField
-          id="outlined-search"
-          label="Search..."
-          type="text"
-          size='small'
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon
-                  sx={{ color: 'white' }}
-                />
-              </InputAdornment>
-            ),
-            endAdornment: (
-              <InputAdornment position="end">
-                <CloseIcon
-                  sx={{
-                    color: searchValue ? 'white' : 'transparent',
-                    cursor: 'pointer'
-                  }}
-                  fontSize='small'
-                  onClick={() => setSearchValue('')}
-                />
-              </InputAdornment>
-            )
-          }}
-          sx={{
-            minWidth: '120px',
-            maxWidth: '180px',
-            '& label': {
-              color: 'white'
-            },
-            '& label.Mui-focused': {
-              color: 'white'
-            },
-            '& input': {
-              color: 'white'
-            },
-            '& .MuiOutlinedInput-root': {
-              '& fieldset': {
-                borderColor: 'white'
-              },
-              '&:hover fieldset': {
-                borderColor: 'white'
-              },
-              '&.Mui-focused fieldset': {
-                borderColor: 'white'
-              }
-            }
-          }}
-        />
-
-        <ModeSelect />
-        <Tooltip title="Notifications">
-          <Badge color="warning" variant="dot" sx={{ cursor: 'pointer' }}>
-            <NotificationsNoneIcon sx={{ color: 'white' }} />
-          </Badge>
-        </Tooltip>
-        <Tooltip title="Help">
-          <HelpOutlineIcon sx={{ color: 'white' }} />
-        </Tooltip>
-        <Tooltip title="Profiles">
-          <Profiles />
-        </Tooltip>
-      </Box>
+      
     </Box>
   )
 }
