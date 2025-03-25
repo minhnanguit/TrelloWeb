@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box'
-import ModeSelect from '~/components/ModeSelect/index'
+import ModeSelect from '~/components/ModeSelect/ModeSelect'
 import AppsIcon from '@mui/icons-material/Apps'
 import Typography from '@mui/material/Typography'
 import Workspaces from './Menus/Workspaces'
@@ -143,7 +143,6 @@ function AppBar() {
           </Tooltip>
         </Box>
       </Box>
-      
     </Box>
   )
 }
