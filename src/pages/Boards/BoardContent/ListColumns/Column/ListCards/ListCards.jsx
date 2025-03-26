@@ -2,7 +2,7 @@ import Box from '@mui/material/Box'
 import Card from './Card/Card'
 
 
-function ListCards() {
+function ListCards({ cards }) {
   return (
     <Box sx={{
       padding: '0 5px',
@@ -20,14 +20,7 @@ function ListCards() {
         backgroundColor: '#bfc2cf'
       }
     }}>
-      <Card />
-      <Card temporaryHideMedia />
-      <Card temporaryHideMedia />
-      <Card temporaryHideMedia />
-      <Card temporaryHideMedia />
-      <Card temporaryHideMedia />
-      <Card temporaryHideMedia />
-      <Card temporaryHideMedia />
+      {cards.map(card => <Card key={card?._id} card={card} />)}
     </Box>
   )
 }
