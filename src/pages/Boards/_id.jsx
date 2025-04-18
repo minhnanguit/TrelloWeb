@@ -3,16 +3,15 @@ import Container from '@mui/material/Container'
 import AppBar from '~/components/AppBar/AppBar'
 import BoardBar from './BoardBar/BoardBar'
 import BoxContent from './BoardContent/BoardContent'
-import { mockData } from '~/apis/mock-data.js'
+// import { mockData } from '~/apis/mock-data.js'
 import { useEffect, useState } from 'react'
 import { fetchBoardDetailsAPI } from '~/apis/index'
-import { set } from 'lodash'
 
 function Board() {
   const [board, setBoard] = useState(null)
 
   useEffect(() => {
-    const boardId = '67ffc55f5baf4f35aaec9824'
+    const boardId = '680123c4aa5d6d6bedb940c0'
 
     // CallAPI
     fetchBoardDetailsAPI(boardId)
