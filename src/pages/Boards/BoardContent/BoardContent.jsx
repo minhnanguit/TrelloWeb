@@ -2,7 +2,27 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import Box from '@mui/material/Box'
 import ListColumns from './ListColumns/ListColumns'
 import { mapOrder } from '~/utils/sorts'
-import { DndContext, PointerSensor, MouseSensor, TouchSensor, useSensor, useSensors, DragOverlay, defaultDropAnimationSideEffects, closestCorners, closestCenter, pointerWithin, rectIntersection, getFirstCollision } from '@dnd-kit/core'
+
+import {
+  DndContext,
+  // PointerSensor,
+  // MouseSensor,
+  // TouchSensor,
+  useSensor,
+  useSensors,
+  DragOverlay,
+  defaultDropAnimationSideEffects,
+  closestCorners,
+  closestCenter,
+  pointerWithin,
+  rectIntersection,
+  getFirstCollision
+} from '@dnd-kit/core'
+import {
+  MouseSensor,
+  TouchSensor
+} from '~/customLibraries/DndKitSensors'
+
 import { arrayMove } from '@dnd-kit/sortable'
 import Column from './ListColumns/Column/Column'
 import Card from './ListColumns/Column/ListCards/Card/Card'
@@ -18,11 +38,12 @@ const ACTIVE_DRAG_ITEM_TYPE = {
 
 function BoardContent({ board }) {
   // Xu ly sensor
-  const pointerSensor = useSensor(PointerSensor, {
-    activationConstraint: {
-      distance: 10
-    }
-  })
+
+  // const pointerSensor = useSensor(PointerSensor, {
+  //   activationConstraint: {
+  //     distance: 10
+  //   }
+  // })
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
       distance: 10
@@ -34,7 +55,7 @@ function BoardContent({ board }) {
       tolerance: 500
     }
   })
-  const sensors = useSensors(pointerSensor, mouseSensor, touchSensor)
+  const sensors = useSensors(mouseSensor, touchSensor)
 
   // Xu ly dnd columns
   const [orderedColumns, setOrderedColumns] = useState([])
