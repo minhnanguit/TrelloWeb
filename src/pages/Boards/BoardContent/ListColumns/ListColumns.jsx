@@ -6,6 +6,7 @@ import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortabl
 import { useState } from 'react'
 import TextField from '@mui/material/TextField'
 import CloseIcon from '@mui/icons-material/Close'
+import { toast } from 'react-toastify' // dung toast o dau thi import o do
 
 
 // SortableContext yeu cau prop items la 1 mang dang ['id-1', 'id-2'] chu kh phai [{id: 'id-1'},  {id: 'id-2'}]
@@ -20,7 +21,7 @@ function ListColumns({ columns }) {
 
   const addNewColumn = () => {
     if (!newColumnTitle) {
-      // console.error('Please enter column title')
+      toast.error('Please enter column title')
       return
     }
     // console.log(newColumnTitle)
