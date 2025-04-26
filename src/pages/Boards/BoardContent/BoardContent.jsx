@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Box from '@mui/material/Box'
 import ListColumns from './ListColumns/ListColumns'
-import { mapOrder } from '~/utils/sorts'
 
 import {
   DndContext,
@@ -36,7 +35,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
 }
 
 
-function BoardContent({ board, createNewColumn, createNewCard, moveColumns }) {
+function BoardContent({ board, createNewColumn, createNewCard, moveColumns, moveCardsInSameColumn }) {
   // Xu ly sensor
 
   // const pointerSensor = useSensor(PointerSensor, {
@@ -71,7 +70,8 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns }) {
   const lastOverId = useRef(null)
 
   useEffect(() => {
-    setOrderedColumns(mapOrder(board?.columns, board?.columnOrderIds, '_id'))
+    // Columns da duoc sx o component cha cao nhat (_id.jsx)
+    setOrderedColumns(board.columns)
   }, [board])
 
   // Tim column theo cardId
@@ -231,6 +231,7 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns }) {
         const newCardIndex = overColumn?.cards?.findIndex(card => card._id === overCardId)
         // arrayMove cua dnd-kit de sap xep lai mang cards
         const dndOrderedCards = arrayMove(oldColumnWhenDraggingCard?.cards, oldCardIndex, newCardIndex)
+        const dndOrderedCardIds = dndOrderedCards.map(card => card._id)
 
         // Set lai du lieu theo dndOrderedCards
         setOrderedColumns(prevColumns => {
@@ -242,10 +243,13 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns }) {
 
           // set lai du lieu cho cards va cardOrderIds
           targetColumn.cards = dndOrderedCards
-          targetColumn.cardOrderIds = dndOrderedCards.map(card => card._id)
+          targetColumn.cardOrderIds = dndOrderedCardIds
 
           return nextColumns
         })
+
+        // Sau khi ket thuc dnd cards trong cung column thi can cap nhat lai state board -> kh call API truc tiep o day ma se call API o component cha (_id)
+        moveCardsInSameColumn(dndOrderedCards, dndOrderedCardIds, oldColumnWhenDraggingCard._id)
       }
     }
 
