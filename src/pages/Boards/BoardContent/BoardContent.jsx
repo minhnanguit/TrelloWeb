@@ -36,7 +36,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
 }
 
 
-function BoardContent({ board, createNewColumn, createNewCard }) {
+function BoardContent({ board, createNewColumn, createNewCard, moveColumns }) {
   // Xu ly sensor
 
   // const pointerSensor = useSensor(PointerSensor, {
@@ -259,11 +259,11 @@ function BoardContent({ board, createNewColumn, createNewCard }) {
 
         // arrayMove cua dnd-kit de sap xep lai mang columns ban dau
         const dndOrderedColumns = arrayMove(orderedColumns, oldColumnIndex, newColumnIndex)
-        // const dndOrderedColumnsIds = dndOrderedColumns.map(column => column._id)
-        // console.log('dndOrderedColumns: ', dndOrderedColumns)
-        // console.log('dndOrderedColumnsIds: ', dndOrderedColumnsIds)
 
         setOrderedColumns(dndOrderedColumns)
+
+        // Sau khi ket thuc dnd columns thi can cap nhat lai state board -> kh call API truc tiep o day ma se call API o component cha (_id)
+        moveColumns(dndOrderedColumns)
       }
     }
 
