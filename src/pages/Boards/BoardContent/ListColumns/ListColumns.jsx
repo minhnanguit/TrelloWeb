@@ -13,7 +13,7 @@ import { toast } from 'react-toastify' // dung toast o dau thi import o do
 // Neu kh dung thi van keo the duoc nhung kh co animation
 
 
-function ListColumns({ columns }) {
+function ListColumns({ columns, createNewColumn, createNewCard }) {
   const [openNewColumnForm, setOpenNewColumnForm] = useState(false)
   const toogleOpenNewColumnForm = () => setOpenNewColumnForm(!openNewColumnForm)
 
@@ -24,9 +24,13 @@ function ListColumns({ columns }) {
       toast.error('Please enter column title')
       return
     }
-    // console.log(newColumnTitle)
 
-    // Call API here
+    // Tao du lieu column de call API
+    const newColumnData = {
+      title: newColumnTitle
+    }
+    // Khi tao moi column thi can cap nhat lai state board => kh call API truc tiep o day ma phai call o component cha (_id)
+    createNewColumn(newColumnData)
 
     // Dong trang thai them column moi va clear input
     toogleOpenNewColumnForm()
@@ -46,7 +50,7 @@ function ListColumns({ columns }) {
           margin: '0 16px'
         }
       }}>
-        {columns.map(column => <Column key={column._id} column={column} />)}
+        {columns.map(column => <Column key={column._id} column={column} createNewCard={createNewCard} />)}
 
         {/* Box add new card */}
         {!openNewColumnForm

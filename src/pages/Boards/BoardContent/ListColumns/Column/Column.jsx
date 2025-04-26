@@ -25,7 +25,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import { toast } from 'react-toastify'
 
 
-function Column({ column }) {
+function Column({ column, createNewCard }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: column._id,
     data: { ...column }
@@ -61,9 +61,14 @@ function Column({ column }) {
       toast.error('Please enter card title', { position: 'bottom-right' })
       return
     }
-    // console.log(newCardTitle)
 
-    // Call API here
+    // Tao du lieu card de call API
+    const newCardData = {
+      title: newCardTitle,
+      columnId: column._id
+    }
+    // Khi tao moi card thi can cap nhat lai state board => kh call API truc tiep o day ma phai call o component cha (_id)
+    createNewCard(newCardData)
 
     toogleOpenNewCardFrom()
     setNewCardTitle('')
