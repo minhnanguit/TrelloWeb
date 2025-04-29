@@ -3,14 +3,14 @@ import Container from '@mui/material/Container'
 import AppBar from '~/components/AppBar/AppBar'
 import BoardBar from './BoardBar/BoardBar'
 import BoxContent from './BoardContent/BoardContent'
-// import { mockData } from '~/apis/mock-data.js'
 import { useEffect, useState } from 'react'
 
 import { fetchBoardDetailsAPI,
   createNewColumnAPI,
   createNewCardAPI,
   updateBoardDetailsAPI,
-  moveCardToDifferentColumnAPI
+  moveCardToDifferentColumnAPI,
+  deleteColumnDetailsAPI
 } from '~/apis/index'
 
 import { generatePlaceholderCard } from '~/utils/generatePlaceholderCard.js'
@@ -18,6 +18,7 @@ import { isEmpty } from 'lodash'
 import { mapOrder } from '~/utils/sorts'
 import { Box, Typography } from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
+import { toast } from 'react-toastify'
 
 function Board() {
   const [board, setBoard] = useState(null)
@@ -146,6 +147,21 @@ function Board() {
     })
   }
 
+  // Call API xu ly xoa column
+  const deleteColumnDetails = (columnId) => {
+    // Update cho chuan du lieu state board
+    const newBoard = { ...board }
+    newBoard.columns = newBoard.columns.filter(column => column._id !== columnId)
+    newBoard.columnOrderIds = newBoard.columnOrderIds.filter(_id => _id !== columnId)
+    setBoard(newBoard)
+
+    // Call API delete column
+    deleteColumnDetailsAPI(columnId)
+      .then((res) => {
+        toast.success(res.deleteResult)
+      })
+  }
+
   if (!board) {
     return (
       <Box sx={{
@@ -168,11 +184,13 @@ function Board() {
       <BoardBar board={board} />
       <BoxContent
         board={board}
+
         createNewColumn={createNewColumn}
         createNewCard={createNewCard}
         moveColumns={moveColumns}
         moveCardsInSameColumn={moveCardsInSameColumn}
         moveCardToDifferentColumn={moveCardToDifferentColumn}
+        deleteColumnDetails={deleteColumnDetails}
       />
     </Container>
   )

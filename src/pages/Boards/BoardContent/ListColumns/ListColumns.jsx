@@ -13,7 +13,7 @@ import { toast } from 'react-toastify' // dung toast o dau thi import o do
 // Neu kh dung thi van keo the duoc nhung kh co animation
 
 
-function ListColumns({ columns, createNewColumn, createNewCard }) {
+function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDetails }) {
   const [openNewColumnForm, setOpenNewColumnForm] = useState(false)
   const toogleOpenNewColumnForm = () => setOpenNewColumnForm(!openNewColumnForm)
 
@@ -50,7 +50,13 @@ function ListColumns({ columns, createNewColumn, createNewCard }) {
           margin: '0 16px'
         }
       }}>
-        {columns.map(column => <Column key={column._id} column={column} createNewCard={createNewCard} />)}
+        {columns.map(column =>
+          <Column key={column._id}
+            column={column}
+            createNewCard={createNewCard}
+            deleteColumnDetails={deleteColumnDetails}
+          />
+        )}
 
         {/* Box add new card */}
         {!openNewColumnForm
