@@ -35,7 +35,15 @@ const ACTIVE_DRAG_ITEM_TYPE = {
 }
 
 
-function BoardContent({ board, createNewColumn, createNewCard, moveColumns, moveCardsInSameColumn, moveCardToDifferentColumn }) {
+function BoardContent({
+  board,
+  createNewColumn,
+  createNewCard,
+  moveColumns,
+  moveCardsInSameColumn,
+  moveCardToDifferentColumn,
+  deleteColumnDetails
+}) {
   // Xu ly sensor
 
   // const pointerSensor = useSensor(PointerSensor, {
@@ -356,6 +364,7 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns, move
           columns={orderedColumns}
           createNewColumn={createNewColumn}
           createNewCard={createNewCard}
+          deleteColumnDetails={deleteColumnDetails}
         />
 
         <DragOverlay dropAnimation={dropAnimation}>
