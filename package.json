@@ -6,7 +6,7 @@
   "author": "MinhNang",
   "description": "",
   "engines": {
-    "node": ">=18.x"
+    "node": "18.x"
   },
   "scripts": {
     "dev": "cross-env BUILD_MODE=dev vite --host",

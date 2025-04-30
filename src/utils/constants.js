@@ -9,4 +9,3 @@ if (process.env.BUILD_MODE === 'production') {
 }
 
 export const API_ROOT = apiRoot
-// export const API_ROOT = 'https://trelloapi-m6ew.onrender.com'
