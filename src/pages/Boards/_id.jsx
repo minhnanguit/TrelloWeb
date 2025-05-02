@@ -16,19 +16,24 @@ import CircularProgress from '@mui/material/CircularProgress'
 
 import { fetchBoardDetailsAPI, updateCurrentActiveBoard, selectCurrentActiveBoard } from '~/redux/activeBoard/activeBoardSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 
 function Board() {
   const dispatch = useDispatch()
+  // Khong dung state cua component nua ma chuyen sang state cua redux
   const board = useSelector(selectCurrentActiveBoard)
   // const [board, setBoard] = useState(null)
 
+  // Lay params boardId tren URL
+  const { boardId } = useParams()
+
   useEffect(() => {
-    const boardId = '680c5638cd86303dd9fde5df'
+    // const boardId = '680c5638cd86303dd9fde5df'
 
     // CallAPI
     dispatch(fetchBoardDetailsAPI(boardId))
-  }, [dispatch])
+  }, [dispatch, boardId])
 
 
   // Call API xu ly sau khi dnd columns xong
