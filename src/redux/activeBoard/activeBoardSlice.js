@@ -1,21 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { isEmpty } from 'lodash'
 import { API_ROOT } from '~/utils/constants'
 import { generatePlaceholderCard } from '~/utils/generatePlaceholderCard'
 import { mapOrder } from '~/utils/sorts'
 
-// Khoi tao gia tri State cua mot cai Slice trong redux
+// Khoi tao gia tri State cua mot cai Slice trong Redux
 const initialState = {
   currentActiveBoard: null
 }
 
 // Cac hanh dong goi api (bat dong bo) va cap nhat du lieu vao Redux, dung Middleware createAsyncThunk di kem voi extraReducers
-export const fetchBoardDetailsAPI = async (boardId) => {
-  const response = await axios.get(`${API_ROOT}/v1/boards/${boardId}`)
-  // axios se tra ve ket qua thong qua property cua no la data
-  return response.data
-}
+export const fetchBoardDetailsAPI = createAsyncThunk(
+  'activeBoard/fetchBoardDetailsAPI',
+  async (boardId) => {
+    const response = await axios.get(`${API_ROOT}/v1/boards/${boardId}`)
+    return response.data
+  }
+)
 
 // Khoi tao mot cac Slice trong kho luu tru (Redux Store)
 export const activeBoardSlice = createSlice({
@@ -40,7 +42,7 @@ export const activeBoardSlice = createSlice({
       // action.payload o day chinh la response.data tra ve o tren khi call API
       let board = action.payload
 
-      // Xu ly du lieu
+      // Xu ly du lieu (neu co)
       // Sap xep columns luon o day truoc khi truyen xuong components con
       board.columns = mapOrder(board.columns, board.columnOrderIds, '_id')
 
@@ -61,12 +63,10 @@ export const activeBoardSlice = createSlice({
   }
 })
 
-// Actions: la noi danh cho cac components ben duoi goi bang dispatch() toi no de cap nhat lai du lieu
-// thong qua reducer (chay dong bo)
+// Actions: la noi danh cho cac components ben duoi goi bang dispatch() toi no de cap nhat lai du lieu thong qua reducer (chay dong bo)
 export const { updateCurrentActiveBoard } = activeBoardSlice.actions
 
-// Selectors: la noi danh cho cac components ben duoi goi bang hook useSelector() de lay du lieu tu kho
-// redux store ra su dung
+// Selectors: la noi danh cho cac components ben duoi goi bang hook useSelector() de lay du lieu tu kho redux store ra su dung
 export const selectCurrentActiveBoard = (state) => {
   return state.activeBoard.currentActiveBoard
 }

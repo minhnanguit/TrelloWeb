@@ -7,19 +7,27 @@ import { useState } from 'react'
 import TextField from '@mui/material/TextField'
 import CloseIcon from '@mui/icons-material/Close'
 import { toast } from 'react-toastify' // dung toast o dau thi import o do
+import { cloneDeep } from 'lodash'
+import { createNewColumnAPI } from '~/apis/index'
+import { selectCurrentActiveBoard, updateCurrentActiveBoard } from '~/redux/activeBoard/activeBoardSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { generatePlaceholderCard } from '~/utils/generatePlaceholderCard.js'
 
 
 // SortableContext yeu cau prop items la 1 mang dang ['id-1', 'id-2'] chu kh phai [{id: 'id-1'},  {id: 'id-2'}]
 // Neu kh dung thi van keo the duoc nhung kh co animation
 
 
-function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDetails }) {
+function ListColumns({ columns }) {
+  const dispatch = useDispatch()
+  const board = useSelector(selectCurrentActiveBoard)
+
   const [openNewColumnForm, setOpenNewColumnForm] = useState(false)
   const toogleOpenNewColumnForm = () => setOpenNewColumnForm(!openNewColumnForm)
 
   const [newColumnTitle, setNewColumnTitle] = useState('')
 
-  const addNewColumn = () => {
+  const addNewColumn = async () => {
     if (!newColumnTitle) {
       toast.error('Please enter column title')
       return
@@ -29,8 +37,28 @@ function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDeta
     const newColumnData = {
       title: newColumnTitle
     }
-    // Khi tao moi column thi can cap nhat lai state board => kh call API truc tiep o day ma phai call o component cha (_id)
-    createNewColumn(newColumnData)
+
+    /* Call API tao moi column va cap nhat lai state board (dung redux) */
+    // Call API tao moi column
+    const createdColumn = await createNewColumnAPI({
+      ...newColumnData,
+      boardId: board._id
+    })
+
+    // Khi tao moi 1 column thi can tao mot placeholder card cua column do
+    createdColumn.cards = [generatePlaceholderCard(createdColumn)]
+    createdColumn.cardOrderIds = [generatePlaceholderCard(createdColumn)._id]
+
+    // Cap nhat lai state board
+    /** O day neu dung spread operator thi se bi dinh loi 'object is not extensible' lien quan den rules cua redux
+     * -> thay vi dung spread operator thi dung cloneDeep
+     */
+    // const newBoard = { ...board }
+    const newBoard = cloneDeep(board)
+    newBoard.columns.push(createdColumn)
+    newBoard.columnOrderIds.push(createdColumn._id)
+    // setBoard(newBoard)
+    dispatch(updateCurrentActiveBoard(newBoard))
 
     // Dong trang thai them column moi va clear input
     toogleOpenNewColumnForm()
@@ -53,8 +81,6 @@ function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDeta
         {columns.map(column =>
           <Column key={column._id}
             column={column}
-            createNewCard={createNewCard}
-            deleteColumnDetails={deleteColumnDetails}
           />
         )}
 
