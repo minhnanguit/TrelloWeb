@@ -47,7 +47,7 @@ function LoginForm() {
           <Box sx={{ marginTop: '1em', display: 'flex', justifyContent: 'center', color: theme => theme.palette.grey[500] }}>
             Author: MinhNang
           </Box>
-          {/* <Box sx={{ marginTop: '1em', display: 'flex', justifyContent: 'center', flexDirection: 'column', padding: '0 1em' }}>
+          <Box sx={{ marginTop: '1em', display: 'flex', justifyContent: 'center', flexDirection: 'column', padding: '0 1em' }}>
             <Alert severity="success" sx={{ '.MuiAlert-message': { overflow: 'hidden' } }}>
               Your email&nbsp;
               <Typography variant="span" sx={{ fontWeight: 'bold', '&:hover': { color: '#fdba26' } }}>minhnang@gmail.com</Typography>
@@ -58,7 +58,7 @@ function LoginForm() {
               <Typography variant="span" sx={{ fontWeight: 'bold', '&:hover': { color: '#fdba26' } }}>minhnang@gmail.com</Typography>
               <br />Please check and verify your account before logging in!
             </Alert>
-          </Box> */}
+          </Box>
           <Box sx={{ padding: '0 1em 1em 1em' }}>
             <Box sx={{ marginTop: '1em' }}>
               <TextField
