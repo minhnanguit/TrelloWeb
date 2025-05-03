@@ -269,7 +269,10 @@ function Column({ column }) {
               justifyContent: 'space-between'
             }}
             >
-              <Button startIcon={<AddCardIcon />} onClick={toogleOpenNewCardFrom}>
+              <Button
+                startIcon={<AddCardIcon />}
+                onClick={toogleOpenNewCardFrom}
+              >
                 Add new card
               </Button>
               <Tooltip title="Drag to card">
@@ -329,6 +332,7 @@ function Column({ column }) {
                 gap: 1
               }}>
                 <Button
+                  className='interceptor-loading'
                   onClick={addNewCard}
                   variant='contained'
                   color='success'

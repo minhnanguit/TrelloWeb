@@ -11,7 +11,7 @@ import { cloneDeep } from 'lodash'
 import { createNewColumnAPI } from '~/apis/index'
 import { selectCurrentActiveBoard, updateCurrentActiveBoard } from '~/redux/activeBoard/activeBoardSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { generatePlaceholderCard } from '~/utils/generatePlaceholderCard.js'
+import { generatePlaceholderCard } from '~/utils/formatters.js'
 
 
 // SortableContext yeu cau prop items la 1 mang dang ['id-1', 'id-2'] chu kh phai [{id: 'id-1'},  {id: 'id-2'}]
@@ -84,7 +84,7 @@ function ListColumns({ columns }) {
           />
         )}
 
-        {/* Box add new card */}
+        {/* Box add new column */}
         {!openNewColumnForm
           ? <Box
             onClick={toogleOpenNewColumnForm}
@@ -158,6 +158,7 @@ function ListColumns({ columns }) {
               gap: 1
             }}>
               <Button
+                className='interceptor-loading'
                 onClick={addNewColumn}
                 variant='contained'
                 color='success'

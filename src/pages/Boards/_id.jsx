@@ -29,8 +29,6 @@ function Board() {
   const { boardId } = useParams()
 
   useEffect(() => {
-    // const boardId = '680c5638cd86303dd9fde5df'
-
     // CallAPI
     dispatch(fetchBoardDetailsAPI(boardId))
   }, [dispatch, boardId])

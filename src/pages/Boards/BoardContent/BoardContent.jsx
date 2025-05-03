@@ -26,7 +26,7 @@ import { arrayMove } from '@dnd-kit/sortable'
 import Column from './ListColumns/Column/Column'
 import Card from './ListColumns/Column/ListCards/Card/Card'
 import { cloneDeep, isEmpty } from 'lodash'
-import { generatePlaceholderCard } from '~/utils/generatePlaceholderCard.js'
+import { generatePlaceholderCard } from '~/utils/formatters.js'
 
 
 const ACTIVE_DRAG_ITEM_TYPE = {
