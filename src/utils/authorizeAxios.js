@@ -30,7 +30,6 @@ authorizedAxiosInstance.interceptors.response.use((response) => {
   return response
 }, (error) => {
   // Moi ma http status code nam ngoai khoang 200-299 se la error va roi vao day
-
   // Chan spam click
   interceptorLoadingElements(false)
 

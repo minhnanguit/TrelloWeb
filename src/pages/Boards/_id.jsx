@@ -11,12 +11,13 @@ import {
 } from '~/apis/index'
 
 import { cloneDeep } from 'lodash'
-import { Box, Typography } from '@mui/material'
-import CircularProgress from '@mui/material/CircularProgress'
 
 import { fetchBoardDetailsAPI, updateCurrentActiveBoard, selectCurrentActiveBoard } from '~/redux/activeBoard/activeBoardSlice'
 import { useDispatch, useSelector } from 'react-redux'
+
 import { useParams } from 'react-router-dom'
+
+import PageLoading from '~/components/Loading/PageLoading'
 
 
 function Board() {
@@ -97,19 +98,7 @@ function Board() {
   }
 
   if (!board) {
-    return (
-      <Box sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 2,
-        width: '100vw',
-        height: '100vh'
-      }}>
-        <CircularProgress />
-        <Typography>Loading Board...</Typography>
-      </Box>
-    )
+    return <PageLoading content='Loading Board...' />
   }
 
   return (

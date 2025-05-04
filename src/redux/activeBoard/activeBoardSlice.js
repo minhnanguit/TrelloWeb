@@ -26,7 +26,7 @@ export const activeBoardSlice = createSlice({
   // Reducers: noi xu ly du lieu dong bo
   reducers: {
     updateCurrentActiveBoard: (state, action) => {
-      // action.payload la chuan dat ten nhan du lieu vao reducer
+      // action.payload la chuan dat ten nhan du lieu vao reducer, action.payload o day chinh la du lieu nhan duoc tu View
       const board = action.payload
 
       // Xu ly du lieu neu can thiet
