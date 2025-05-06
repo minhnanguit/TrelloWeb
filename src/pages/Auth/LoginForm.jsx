@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Avatar from '@mui/material/Avatar'
@@ -10,7 +10,6 @@ import CardActions from '@mui/material/CardActions'
 import TextField from '@mui/material/TextField'
 import Zoom from '@mui/material/Zoom'
 import Alert from '@mui/material/Alert'
-
 import { useForm } from 'react-hook-form'
 import {
   FIELD_REQUIRED_MESSAGE,
@@ -20,9 +19,15 @@ import {
   PASSWORD_RULE_MESSAGE
 } from '~/utils/validators'
 import FieldErrorAlert from '~/components/Form/FieldErrorAlert'
+import { toast } from 'react-toastify'
+import { loginUserAPI } from '~/redux/user/userSlice'
+import { useDispatch } from 'react-redux'
 
 
 function LoginForm() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const { register, handleSubmit, formState: { errors } } = useForm()
 
   const [searchParams] = useSearchParams()
@@ -30,7 +35,17 @@ function LoginForm() {
   const registeredEmail = searchParams.get('registeredEmail')
 
   const submitLogIn = (data) => {
-    // console.log(data)
+    const { email, password } = data
+
+    toast.promise(
+      dispatch(loginUserAPI({ email, password })),
+      { pending: 'Logging in...' }
+    )
+      .then(res => {
+        // console.log('res: ', res)
+        // Phai kiem tra kh co loi (login thanh cong) thi moi redirect (dieu huong) ve route /
+        if (!res.error) navigate('/')
+      })
   }
 
   return (
