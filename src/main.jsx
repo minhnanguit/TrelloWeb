@@ -19,22 +19,29 @@ import { store } from '~/redux/store'
 // Cau hinh react-router-dom voi BrowserRouter
 import { BrowserRouter } from 'react-router-dom'
 
+// Cau hinh redux-persist de luu du lieu cua user vao localstorage
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from 'redux-persist'
+const persistor = persistStore(store)
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter basename='/'>
     <Provider store={store}>
-      <CssVarsProvider theme={theme}>
-        <ConfirmProvider defaultOptions={{
-          dialogProps: { maxWidth: 'xs' },
-          confirmationButtonProps: { color: 'primary', variant: 'outlined' },
-          cancellationButtonProps: { color: 'inherit' },
-          allowClose: false
-        }}>
-          <CssBaseline />
-          <App />
-          <ToastContainer position='bottom-left' theme='colored' />
-        </ConfirmProvider>
-      </CssVarsProvider>
+      <PersistGate persistor={persistor}>
+        <CssVarsProvider theme={theme}>
+          <ConfirmProvider defaultOptions={{
+            dialogProps: { maxWidth: 'xs' },
+            confirmationButtonProps: { color: 'primary', variant: 'outlined' },
+            cancellationButtonProps: { color: 'inherit' },
+            allowClose: false
+          }}>
+            <CssBaseline />
+            <App />
+            <ToastContainer position='bottom-left' theme='colored' />
+          </ConfirmProvider>
+        </CssVarsProvider>
+      </PersistGate>
     </Provider>
   </BrowserRouter>
 )

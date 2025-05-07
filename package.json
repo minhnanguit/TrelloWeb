@@ -35,6 +35,7 @@
     "react-starfield": "^1.0.3",
     "react-starfield-animation": "^1.0.1",
     "react-toastify": "^9.1.3",
+    "redux-persist": "^6.0.0",
     "yarn": "^1.22.22"
   },
   "devDependencies": {
