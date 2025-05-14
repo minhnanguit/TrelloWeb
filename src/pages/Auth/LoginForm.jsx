@@ -42,7 +42,6 @@ function LoginForm() {
       { pending: 'Logging in...' }
     )
       .then(res => {
-        // console.log('res: ', res)
         // Phai kiem tra kh co loi (login thanh cong) thi moi redirect (dieu huong) ve route /
         if (!res.error) navigate('/')
       })
