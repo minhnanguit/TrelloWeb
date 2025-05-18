@@ -27,7 +27,7 @@ function App() {
       {/* Redirect Route */}
       <Route path='/' element={
         // replace gia tri true de no thay the route /, nghia la route / se kh con nam trong history cua Browser
-        <Navigate to='/boards/680c5638cd86303dd9fde5df' replace={true} />
+        <Navigate to='/boards' replace={true} />
       } />
 
       {/* Protected Routes la nhung route chi cho truy cap sau khi login */}
