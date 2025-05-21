@@ -4,20 +4,17 @@ import AppBar from '~/components/AppBar/AppBar'
 import BoardBar from './BoardBar/BoardBar'
 import BoxContent from './BoardContent/BoardContent'
 import { useEffect } from 'react'
-
 import {
   updateBoardDetailsAPI,
   moveCardToDifferentColumnAPI
 } from '~/apis/index'
-
 import { cloneDeep } from 'lodash'
-
 import { fetchBoardDetailsAPI, updateCurrentActiveBoard, selectCurrentActiveBoard } from '~/redux/activeBoard/activeBoardSlice'
 import { useDispatch, useSelector } from 'react-redux'
-
 import { useParams } from 'react-router-dom'
-
 import PageLoading from '~/components/Loading/PageLoading'
+import ActiveCard from '~/components/Modal/ActiveCard/ActiveCard'
+import { selectCurrentActiveCard } from '~/redux/activeCard/activeCardSlice'
 
 
 function Board() {
@@ -25,6 +22,7 @@ function Board() {
   // Khong dung state cua component nua ma chuyen sang state cua redux
   const board = useSelector(selectCurrentActiveBoard)
   // const [board, setBoard] = useState(null)
+  const activeCard = useSelector(selectCurrentActiveCard)
 
   // Lay params boardId tren URL
   const { boardId } = useParams()
@@ -103,6 +101,11 @@ function Board() {
 
   return (
     <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
+      {/* Modal Active Card, check dong/mo dua theo dieu kien co ton tai data activeCard luu trong Redux hay kh thi moi render.
+      Moi thoi diem chi ton tai mot cai Modal Card dang Active */}
+      {activeCard && <ActiveCard />}
+
+      {/* Cac thanh phan con lai cua Board Details */}
       <AppBar />
       <BoardBar board={board} />
       <BoxContent

@@ -9,9 +9,13 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { useDispatch } from 'react-redux'
+import { updateCurrentActiveCard } from '~/redux/activeCard/activeCardSlice'
 
 
 function Card({ card }) {
+  const dispatch = useDispatch()
+
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: card._id,
     data: { ...card }
@@ -24,8 +28,14 @@ function Card({ card }) {
     border: isDragging ? '1px solid #487eb0' : undefined
   }
 
+  const setActiveCard = () => {
+    // Cap nhat lai du lieu activeCard trong redux
+    dispatch(updateCurrentActiveCard(card))
+  }
+
   return (
     <MuiCard
+      onClick={setActiveCard}
       ref={setNodeRef} style={dndKitCardStyles} {...attributes} {...listeners}
       sx={{
         boxShadow: '0 1px 1px rgba(0, 0, 0, 0.2)',
