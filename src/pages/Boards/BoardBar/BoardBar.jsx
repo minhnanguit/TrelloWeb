@@ -153,7 +153,7 @@ function BoardBar({ board }) {
           </AvatarGroup> */}
 
           {/* Xu ly Avatar Group (kh dung AvatarGroup cua MUI) */}
-          <BoardUserGroup />
+          <BoardUserGroup boardUsers={board?.FE_allUsers} />
         </Box>
       </Box>
     </Box>

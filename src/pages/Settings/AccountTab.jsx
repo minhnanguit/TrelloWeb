@@ -71,7 +71,7 @@ function AccountTab() {
 
     // Sử dụng FormData để xử lý dữ liệu liên quan tới file khi gọi API
     let reqData = new FormData()
-    reqData.append('avatar', e.target?.files[0])
+    reqData.append('avatar', e.target?.files[0]) // them file vao trong reqData bang append cua FormData
     // Cách để log được dữ liệu thông qua FormData
     // console.log('reqData: ', reqData)
     // for (const value of reqData.values()) {

@@ -4,7 +4,7 @@ import Avatar from '@mui/material/Avatar'
 import Tooltip from '@mui/material/Tooltip'
 import Popover from '@mui/material/Popover'
 
-function BoardUserGroup({ boardUsers = [], limit = 8 }) {
+function BoardUserGroup({ boardUsers = [], limit = 6 }) {
   /**
    * Xử lý Popover để ẩn hoặc hiện toàn bộ user trên một cái popup, tương tự docs để tham khảo ở đây:
    * https://mui.com/material-ui/react-popover/
@@ -22,14 +22,14 @@ function BoardUserGroup({ boardUsers = [], limit = 8 }) {
   return (
     <Box sx={{ display: 'flex', gap: '4px' }}>
       {/* Hiển thị giới hạn số lượng user theo số limit */}
-      {[...Array(16)].map((_, index) => { // Tao mang co 16 phan tu la undefined
+      {boardUsers.map((user, index) => { // [...Array(16)] de fetch data tao mang co 16 phan tu la undefined
         if (index < limit) {
           return (
-            <Tooltip title="minhnang" key={index}>
+            <Tooltip title={user?.displayName} key={index}>
               <Avatar
                 sx={{ width: 34, height: 34, cursor: 'pointer' }}
                 alt="minhnang"
-                src="https://th.bing.com/th/id/OIP.PBW5xYA2INIu23KqsVN1RAAAAA?pid=ImgDet&w=184&h=230&c=7&dpr=1.3"
+                src={user?.avatar}
               />
             </Tooltip>
           )
@@ -37,7 +37,7 @@ function BoardUserGroup({ boardUsers = [], limit = 8 }) {
       })}
 
       {/* Nếu số lượng users nhiều hơn limit thì hiện thêm +number */}
-      {[...Array(16)].length > limit &&
+      {boardUsers.length > limit &&
         <Tooltip title="Show more">
           <Box
             aria-describedby={popoverId}
@@ -56,7 +56,7 @@ function BoardUserGroup({ boardUsers = [], limit = 8 }) {
               backgroundColor: '#a4b0be'
             }}
           >
-            +{[...Array(16)].length - limit}
+            +{boardUsers.length - limit}
           </Box>
         </Tooltip>
       }
@@ -70,12 +70,12 @@ function BoardUserGroup({ boardUsers = [], limit = 8 }) {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
       >
         <Box sx={{ p: 2, maxWidth: '235px', display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-          {[...Array(16)].map((_, index) =>
-            <Tooltip title="minhnang" key={index}>
+          {boardUsers.map((user, index) =>
+            <Tooltip title={user?.displayName} key={index}>
               <Avatar
                 sx={{ width: 34, height: 34, cursor: 'pointer' }}
                 alt="minhnang"
-                src="https://th.bing.com/th/id/OIP.PBW5xYA2INIu23KqsVN1RAAAAA?pid=ImgDet&w=184&h=230&c=7&dpr=1.3"
+                src={user?.avatar}
               />
             </Tooltip>
           )}
