@@ -23,7 +23,6 @@ import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined'
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
 import SubjectRoundedIcon from '@mui/icons-material/SubjectRounded'
 import DvrOutlinedIcon from '@mui/icons-material/DvrOutlined'
-
 import ToggleFocusInput from '~/components/Form/ToggleFocusInput'
 import VisuallyHiddenInput from '~/components/Form/VisuallyHiddenInput'
 import { singleFileValidator } from '~/utils/validators'
@@ -32,7 +31,11 @@ import CardUserGroup from './CardUserGroup'
 import CardDescriptionMdEditor from './CardDescriptionMdEditor'
 import CardActivitySection from './CardActivitySection'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearCurrentActiveCard, selectCurrentActiveCard, updateCurrentActiveCard } from '~/redux/activeCard/activeCardSlice'
+import { clearAndHideCurrentActiveCard,
+  selectCurrentActiveCard,
+  selectIsShowModalActiveCard,
+  updateCurrentActiveCard
+} from '~/redux/activeCard/activeCardSlice'
 import { updateCardDetailsAPI } from '~/apis'
 import { updateCardInBoard } from '~/redux/activeBoard/activeBoardSlice'
 
@@ -64,12 +67,13 @@ const SidebarItem = styled(Box)(({ theme }) => ({
 function ActiveCard() {
   const dispatch = useDispatch()
   const activeCard = useSelector(selectCurrentActiveCard)
+  const isShowModalActiveCard = useSelector(selectIsShowModalActiveCard)
 
-  // Kh dung state de check dong mo Modal nua vi da check bang redux trong _id.jsx
+  // Kh dung state de check dong mo Modal nua vi da check bang state isShowModalActiveCard trong redux
   // const [isOpen, setIsOpen] = useState(true)
   // const handleOpenModal = () => setIsOpen(true)
   const handleCloseModal = () => {
-    dispatch(clearCurrentActiveCard())
+    dispatch(clearAndHideCurrentActiveCard())
   }
 
   // Func goi API dung chung de update card title, description, cover, comment,...
@@ -111,10 +115,15 @@ function ActiveCard() {
     )
   }
 
+  // Dung async/await o day de component con CardActivitySection cho, neu thanh cong thi moi clear input
+  const onAddCardComment = async (commentToAdd) => {
+    await callApiUpdateCard({ commentToAdd: commentToAdd })
+  }
+
   return (
     <Modal
       disableScrollLock
-      open={true}
+      open={isShowModalActiveCard}
       onClose={handleCloseModal} // Sử dụng onClose trong trường hợp muốn đóng Modal bằng nút ESC hoặc click ra ngoài Modal
       sx={{ overflowY: 'auto' }}>
       <Box sx={{
@@ -190,7 +199,10 @@ function ActiveCard() {
               </Box>
 
               {/* Feature 04: Xử lý các hành động, ví dụ comment vào Card */}
-              <CardActivitySection />
+              <CardActivitySection
+                cardComments={activeCard?.comments}
+                onAddCardComment={onAddCardComment}
+              />
             </Box>
           </Grid>
 

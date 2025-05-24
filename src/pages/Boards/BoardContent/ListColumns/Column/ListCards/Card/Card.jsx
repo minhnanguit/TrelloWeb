@@ -10,7 +10,7 @@ import Button from '@mui/material/Button'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { useDispatch } from 'react-redux'
-import { updateCurrentActiveCard } from '~/redux/activeCard/activeCardSlice'
+import { showModalActiveCard, updateCurrentActiveCard } from '~/redux/activeCard/activeCardSlice'
 
 
 function Card({ card }) {
@@ -31,6 +31,8 @@ function Card({ card }) {
   const setActiveCard = () => {
     // Cap nhat lai du lieu activeCard trong redux
     dispatch(updateCurrentActiveCard(card))
+    // Hien thi Modal Active Card
+    dispatch(showModalActiveCard())
   }
 
   return (
@@ -66,10 +68,10 @@ function Card({ card }) {
           {!!card?.memberIds?.length &&
             <Button startIcon={<GroupIcon />} size="small">{card?.memberIds?.length}</Button>
           }
-          {!!card?.comments.length &&
+          {!!card?.comments?.length &&
             <Button startIcon={<CommentIcon />} size="small">{card?.comments?.length}</Button>
           }
-          {!!card?.attachments.length &&
+          {!!card?.attachments?.length &&
             <Button startIcon={<AttachmentIcon />} size="small">{card?.attachments?.length}</Button>
           }
         </CardActions>
