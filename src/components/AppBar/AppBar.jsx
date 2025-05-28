@@ -19,6 +19,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import Notifications from './Notifications/Notifications'
 
 // Dung file icon svg ngoai vao trong MUI
 import { ReactComponent as TrelloIcon } from '~/assets/trello.svg'
@@ -137,12 +138,12 @@ function AppBar() {
             }}
           />
 
+          {/* Dark - Light - System modes */}
           <ModeSelect />
-          <Tooltip title="Notifications">
-            <Badge color="warning" variant="dot" sx={{ cursor: 'pointer' }}>
-              <NotificationsNoneIcon sx={{ color: 'white' }} />
-            </Badge>
-          </Tooltip>
+
+          {/* Xu ly hien thi cac thong bao */}
+          <Notifications />
+
           <Tooltip title="Help">
             <HelpOutlineIcon sx={{ color: 'white' }} />
           </Tooltip>

@@ -37,6 +37,7 @@ export const activeBoardSlice = createSlice({
     },
     updateCardInBoard: (state, action) => {
       // Update nested data
+
       const updatedCard = action.payload
 
       // Tim dan tu board > column > card
@@ -44,8 +45,8 @@ export const activeBoardSlice = createSlice({
       if (column) {
         const card = column.cards.find(card => card._id === updatedCard._id)
         if (card) {
-          // card.title = updatedCard.title
-          // card['title'] = updatedCard['title']
+          card.title = updatedCard.title
+          card['title'] = updatedCard['title']
           Object.keys(updatedCard).forEach(key => {
             card[key] = updatedCard[key]
           })

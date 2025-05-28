@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 // Khoi tao gia tri State cua mot cai Slice trong Redux
 const initialState = {
   currentActiveCard: null,
-  isShowModalActiveCard: false // tao mot state rieng o check dong / mo cua modal active card
+  isShowModalActiveCard: false // tao mot state rieng de check dong / mo cua modal active card
 }
 
 // Khoi tao mot cac Slice trong kho luu tru (Redux Store)

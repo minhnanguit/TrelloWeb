@@ -25,6 +25,7 @@ function CardActivitySection({ cardComments = [], onAddCardComment }) {
         content: event.target.value.trim()
       }
 
+      // Goi len props cua component cha de xu ly
       onAddCardComment(commentToAdd)
         .then(() => event.target.value = '')
     }

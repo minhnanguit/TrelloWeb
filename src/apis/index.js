@@ -40,13 +40,6 @@ export const createNewBoardAPI = async (data) => {
   return response.data
 }
 
-export const inviteUserToBoardAPI = async (data) => {
-  const response = await authorizedAxiosInstance.post(`${API_ROOT}/v1/invitations/board`, data)
-  toast.success('User is invited to board successfully!')
-  return response.data
-}
-
-
 /* Columns */
 export const createNewColumnAPI = async (newColumnData) => {
   const response = await authorizedAxiosInstance.post(`${API_ROOT}/v1/columns`, newColumnData)
@@ -90,5 +83,12 @@ export const verifyUserAPI = async (data) => {
 
 export const refreshTokenAPI = async () => {
   const response = await authorizedAxiosInstance.get(`${API_ROOT}/v1/users/refresh_token`)
+  return response.data
+}
+
+/* Invitations */
+export const inviteUserToBoardAPI = async (data) => {
+  const response = await authorizedAxiosInstance.post(`${API_ROOT}/v1/invitations/board`, data)
+  toast.success('User is invited to board successfully!')
   return response.data
 }
