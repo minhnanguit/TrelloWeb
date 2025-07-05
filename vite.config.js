@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react-swc'
 import svgr from 'vite-plugin-svgr'
 
 export default defineConfig({
-  // Cho phep Vite su dung duoc process.env
+  // Cho phep Vite su dung duoc process.env (dung khi deploy FE len Vercel)
   define: {
     'process.env': process.env
   },

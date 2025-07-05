@@ -1,10 +1,10 @@
 {
-  "name": "vite-trello-web-base-project",
+  "name": "react-trello",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "author": "MinhNang",
-  "description": "",
+  "author": "Minh Nang",
+  "description": "https://github.com/minhnanguit",
   "engines": {
     "node": ">=18.x"
   },

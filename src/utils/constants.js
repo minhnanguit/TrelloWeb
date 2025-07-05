@@ -5,11 +5,10 @@ if (process.env.BUILD_MODE === 'dev') {
 }
 
 if (process.env.BUILD_MODE === 'production') {
-  apiRoot = 'https://trelloapi-m6ew.onrender.com'
+  apiRoot = 'https://trelloapi-zapb.onrender.com'
 }
 
 export const API_ROOT = apiRoot
-// export const API_ROOT = 'https://trelloapi-m6ew.onrender.com'
 
 
 export const DEFAULT_PAGE = 1
