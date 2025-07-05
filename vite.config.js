@@ -1,30 +1,19 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import svgr from 'vite-plugin-svgr'
-import { resolve } from 'path'
 
 export default defineConfig({
-  // Override base path từ command line
-  base: '/',
-
+  // Cho phep Vite su dung duoc process.env (dung khi deploy FE len Vercel)
   define: {
     'process.env': process.env
   },
-
   plugins: [
     react(),
     svgr()
   ],
-
   resolve: {
-    alias: {
-      '@': resolve(__dirname, './src'),
-      '~': resolve(__dirname, './src')
-    }
-  },
-
-  build: {
-    outDir: 'dist',
-    assetsDir: 'assets'
+    alias: [
+      { find: '~', replacement: '/src' }
+    ]
   }
 })
