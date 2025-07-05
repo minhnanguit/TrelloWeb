@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import svgr from 'vite-plugin-svgr'
+import { resolve } from 'path'
 
 export default defineConfig({
   // Override base path từ command line
@@ -17,7 +18,8 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      '@': '/src'
+      '@': resolve(__dirname, './src'),
+      '~': resolve(__dirname, './src')
     }
   },
 
